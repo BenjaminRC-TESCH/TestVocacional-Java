@@ -344,9 +344,9 @@ public class Aviso extends JFrame {
 
     private void siguiente(ActionEvent evento) {
 
-        Datos ventanaDatos = new Datos();
+        DatosView ventanaDatosView = new DatosView();
 
-        ventanaDatos.setVisible(true);
+        ventanaDatosView.setVisible(true);
         dispose();
     }
 

@@ -5,6 +5,7 @@ import com.test_vocacional.constant.Constants;
 import com.test_vocacional.constant.SourceConstants;
 import com.test_vocacional.constant.colors.ColorConstants;
 import com.test_vocacional.constant.font.FontConstants;
+import com.test_vocacional.controller.DatosController;
 import com.test_vocacional.model.Estudiante;
 
 import java.awt.*;
@@ -20,7 +21,7 @@ import com.test_vocacional.config.TextField;
  *
  * @author BENJAMIN RAYON CORONA
  */
-public class Datos extends JFrame {
+public class DatosView extends JFrame {
 
     private JPanel panelPrincipal;
     private JLabel etiquetaLogo;
@@ -34,7 +35,10 @@ public class Datos extends JFrame {
 
     private Estudiante estudiante;
 
-    public Datos() {
+    private final DatosController controlador;
+
+    public DatosView() {
+
         initComponents();
 
         WindowConfig.configurar(
@@ -42,15 +46,48 @@ public class Datos extends JFrame {
                 600,
                 500
         );
+
+        controlador = new DatosController(this);
     }
 
-    private void initComponents() {
+    ///GETTERS
+    public String getCampoNombre() {
+        return campoNombre.getText();
+    }
 
+    public String getCampoEdad() {
+        return campoEdad.getText();
+    }
+
+    public String getCampoGrado() {
+        return campoGrado.getText();
+    }
+
+    public String getCampoGrupo() {
+        return campoGrupo.getText();
+    }
+
+    public String getCampoEspecialidad() {
+        return campoEspecialidad.getText();
+    }
+
+    ///MENSAJES
+    public void mostrarMensaje(String mensaje, String titulo) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                mensaje,
+                titulo,
+                JOptionPane.WARNING_MESSAGE
+        );
+    }
+
+
+    private void initComponents() {
         panelPrincipal = new JPanel();
 
         etiquetaLogo = new JLabel();
         etiquetaTitulo = new JLabel();
-
 
         campoNombre = new TextField();
         campoEdad = new TextField();
@@ -58,31 +95,26 @@ public class Datos extends JFrame {
         campoGrupo = new TextField();
         campoEspecialidad = new TextField();
 
-        campoNombre.setLabelText("Nombre");
-        campoEdad.setLabelText("Edad");
-        campoGrado.setLabelText("Grado");
-        campoGrupo.setLabelText("Grupo");
-        campoEspecialidad.setLabelText("Especialidad");
-
         botonAceptar = new JButton();
 
         configurarComponentes();
         configurarEventos();
         configurarLayout();
-
-
     }
 
-
-
     private void configurarComponentes(){
-
         panelPrincipal.setBackground(ColorConstants.BLANCO);
 
         etiquetaLogo.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource(SourceConstants.RUTA_LOGO_CETIS_96))));
 
         etiquetaTitulo.setFont(new Font(FontConstants.ROBOTO_BLACK, Font.PLAIN, 18));
         etiquetaTitulo.setText(Constants.TITULO_DATOS);
+
+        campoNombre.setLabelText("Nombre");
+        campoEdad.setLabelText("Edad");
+        campoGrado.setLabelText("Grado");
+        campoGrupo.setLabelText("Grupo");
+        campoEspecialidad.setLabelText("Especialidad");
 
         botonAceptar.setText(Constants.BOTON_ACEPTAR_DATOS);
         botonAceptar.setBackground(ColorConstants.ROJO_VINO);
@@ -92,39 +124,38 @@ public class Datos extends JFrame {
 
     private void configurarEventos(){
 
-        campoNombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                fieldNombreKeyTyped(evt);
+        campoNombre.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent evt) {
+                validarNombreTecla(evt);
             }
         });
 
-        campoEdad.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                fieldEdadKeyTyped(evt);
+        campoEdad.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent evt) {
+                validadEdadTecla(evt);
             }
         });
 
-
-        campoGrado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                fieldGradoKeyTyped(evt);
+        campoGrado.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent evt) {
+                validarGradoTecla(evt);
             }
         });
 
-        campoGrupo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                fieldGrupoKeyTyped(evt);
+        campoGrupo.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent evt) {
+                validarGrupoTecla(evt);
             }
         });
 
-        campoEspecialidad.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                fieldEspecialidadKeyTyped(evt);
+        campoEspecialidad.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent evt) {
+                validarEspecialidadTecla(evt);
             }
         });
 
         botonAceptar.addActionListener(
-                this::botonAceptarActionPerformed
+                this::botonAceptar
         );
     }
 
@@ -358,116 +389,41 @@ public class Datos extends JFrame {
         pack();
     }
 
-    private void botonAceptarActionPerformed(ActionEvent evt) {
-
-        if (!validarCampos()) {
-            return;
-        }
-
-        String nombre = campoNombre.getText().trim();
-        int edad = Integer.parseInt(campoEdad.getText().trim());
-        int grado = Integer.parseInt(campoGrado.getText().trim());
-        String grupo = campoGrupo.getText().trim();
-        String especialidad = campoEspecialidad.getText().trim();
-
-        estudiante = new Estudiante(
-                nombre,
-                edad,
-                grado,
-                grupo,
-                especialidad
-        );
-
-
-        Instrucciones instrucciones = new Instrucciones(estudiante);
-        instrucciones.setVisible(true);
-        dispose();
-    }
-
-    private boolean validarCampos() {
-
-        if (campoNombre.getText().trim().isEmpty()
-                || campoEdad.getText().trim().isEmpty()
-                || campoGrado.getText().trim().isEmpty()
-                || campoGrupo.getText().trim().isEmpty()
-                || campoEspecialidad.getText().trim().isEmpty()) {
-
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Completa todos los campos",
-                    "Datos incompletos",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
-
-            return false;
-        }
-
-        if (!campoNombre.getText().trim()
-                .matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
-
-            JOptionPane.showMessageDialog(
-                    this,
-                    "El nombre solamente puede contener letras",
-                    "Nombre inválido",
-                    JOptionPane.WARNING_MESSAGE
-            );
-
-            return false;
-        }
-
-        return true;
-    }
-
-
-
-    private void fieldNombreKeyTyped(java.awt.event.KeyEvent evt) {
-        char c = evt.getKeyChar();
-
-        if (!((c >= 'a' && c <= 'z') ||
-                (c >= 'A' && c <= 'Z') ||
-                c == ' ')) {
+    ///EVENTOS TECLADO
+    private void validarNombreTecla(KeyEvent evt) {
+        if (!DatosController.validarNombre(evt.getKeyChar())) {
             evt.consume();
         }
     }
 
-    private void fieldEdadKeyTyped(java.awt.event.KeyEvent evt) {
-        char c = evt.getKeyChar();
-        String text = campoEdad.getText();
-
-        if ((c < '0' || c > '9') ||
-                (text.length() >= 2 &&
-                Integer.parseInt(text + c) > 99) ||
-                (Integer.parseInt(text + c) == 0)) {
-
+    private void validadEdadTecla(KeyEvent evt) {
+        if(!DatosController.validarEdad(evt.getKeyChar(), campoEdad.getText())){
             evt.consume();
         }
     }
 
-    private void fieldGradoKeyTyped(java.awt.event.KeyEvent evt) {
-        char c = evt.getKeyChar();
-        String text = campoGrado.getText();
-
-        if ((c < '1' || c > '6') || (text.length() >= 1 && Integer.parseInt(text + c) > 6)) {
+    private void validarGradoTecla(KeyEvent evt) {
+        if(!DatosController.validarGrado(evt.getKeyChar(), campoGrado.getText())){
             evt.consume();
         }
 
     }
 
-    private void fieldGrupoKeyTyped(java.awt.event.KeyEvent evt) {
-        char c = evt.getKeyChar();
-        String text = campoGrupo.getText();
-
-        if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) || (text.length() >= 1)) {
+    private void validarGrupoTecla(KeyEvent evt) {
+        if(!DatosController.validarGrupo(evt.getKeyChar(), campoGrupo.getText())){
             evt.consume();
         }
     }
 
-    private void fieldEspecialidadKeyTyped(java.awt.event.KeyEvent evt) {
-        char c = evt.getKeyChar();
-
-        if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ')) {
+    private void validarEspecialidadTecla(KeyEvent evt) {
+        if(!DatosController.validarEspecialidad(evt.getKeyChar())){
             evt.consume();
         }
+    }
+
+    private void botonAceptar(ActionEvent evento) {
+
+        controlador.procesarDatos();
     }
 
 }

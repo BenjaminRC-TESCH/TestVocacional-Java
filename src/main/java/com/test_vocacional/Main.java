@@ -1,10 +1,6 @@
 package com.test_vocacional;
 
-import com.test_vocacional.model.Estudiante;
 import com.test_vocacional.view.Bienvenida;
-import com.test_vocacional.view.Datos;
-import com.test_vocacional.view.Reporte;
-import com.test_vocacional.view.Resultado;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
