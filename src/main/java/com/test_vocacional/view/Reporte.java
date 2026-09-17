@@ -40,32 +40,15 @@ import javax.swing.text.StyleConstants;
 
 public class Reporte extends JFrame {
 
-    // =========================================================
-    // CONFIGURACIÓN
-    // =========================================================
-
-
-    // =========================================================
-    // COMPONENTES
-    // =========================================================
-
     private JPanel panelPrincipal;
     private JLabel etiquetaTitulo;
     private JTextPane textoReporte;
     private JScrollPane scrollPaneReporte;
     private JButton botonGenerarReporte;
 
-    // =========================================================
-    // DATOS
-    // =========================================================
-
     private String textoInforme;
 
     private Estudiante estudiante;
-
-    // =========================================================
-    // CONSTRUCTOR
-    // =========================================================
 
     public Reporte(Estudiante estudiante) {
 
@@ -81,14 +64,6 @@ public class Reporte extends JFrame {
         generarTextoInforme();
         configurarReporte();
     }
-
-    // =========================================================
-    // CONFIGURACIÓN DE LA VENTANA
-    // =========================================================
-
-    // =========================================================
-    // INICIALIZACIÓN DE COMPONENTES
-    // =========================================================
 
     private void initComponents() {
         panelPrincipal = new JPanel();
@@ -321,7 +296,6 @@ public class Reporte extends JFrame {
                         + "vocacionales.";
     }
 
-
     private void configurarReporte() {
 
         textoReporte.setText(
@@ -349,10 +323,6 @@ public class Reporte extends JFrame {
                         false
                 );
     }
-
-
-
-
 
     private void generarReporte(ActionEvent evento) {
 
@@ -544,7 +514,6 @@ public class Reporte extends JFrame {
             );
         }
     }
-
 
     private void abrirArchivo(File archivo) throws IOException {
 

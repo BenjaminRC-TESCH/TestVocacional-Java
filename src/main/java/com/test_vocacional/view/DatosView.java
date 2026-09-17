@@ -31,7 +31,7 @@ public class DatosView extends JFrame {
     private TextField campoGrado;
     private TextField campoGrupo;
     private TextField campoEspecialidad;
-    private JButton botonAceptar;
+    private JButton botonSiguiente;
 
     private Estudiante estudiante;
 
@@ -82,7 +82,6 @@ public class DatosView extends JFrame {
         );
     }
 
-
     private void initComponents() {
         panelPrincipal = new JPanel();
 
@@ -95,7 +94,7 @@ public class DatosView extends JFrame {
         campoGrupo = new TextField();
         campoEspecialidad = new TextField();
 
-        botonAceptar = new JButton();
+        botonSiguiente = new JButton();
 
         configurarComponentes();
         configurarEventos();
@@ -116,10 +115,10 @@ public class DatosView extends JFrame {
         campoGrupo.setLabelText("Grupo");
         campoEspecialidad.setLabelText("Especialidad");
 
-        botonAceptar.setText(Constants.BOTON_ACEPTAR_DATOS);
-        botonAceptar.setBackground(ColorConstants.ROJO_VINO);
-        botonAceptar.setForeground(ColorConstants.BLANCO);
-        botonAceptar.setBorder(null);
+        botonSiguiente.setText(Constants.BOTON_SIGUIENTE_DATOS);
+        botonSiguiente.setBackground(ColorConstants.ROJO_VINO);
+        botonSiguiente.setForeground(ColorConstants.BLANCO);
+        botonSiguiente.setBorder(null);
     }
 
     private void configurarEventos(){
@@ -154,8 +153,8 @@ public class DatosView extends JFrame {
             }
         });
 
-        botonAceptar.addActionListener(
-                this::botonAceptar
+        botonSiguiente.addActionListener(
+                this::siguienteVista
         );
     }
 
@@ -253,7 +252,7 @@ public class DatosView extends JFrame {
                                                                 GroupLayout.Alignment.CENTER
                                                         )
                                                         .addComponent(
-                                                                botonAceptar,
+                                                                botonSiguiente,
                                                                 GroupLayout.PREFERRED_SIZE,
                                                                 150,
                                                                 GroupLayout.PREFERRED_SIZE
@@ -342,7 +341,7 @@ public class DatosView extends JFrame {
 
                         // Botón
                         .addComponent(
-                                botonAceptar,
+                                botonSiguiente,
                                 GroupLayout.PREFERRED_SIZE,
                                 30,
                                 GroupLayout.PREFERRED_SIZE
@@ -421,7 +420,7 @@ public class DatosView extends JFrame {
         }
     }
 
-    private void botonAceptar(ActionEvent evento) {
+    private void siguienteVista(ActionEvent evento) {
 
         controlador.procesarDatos();
     }

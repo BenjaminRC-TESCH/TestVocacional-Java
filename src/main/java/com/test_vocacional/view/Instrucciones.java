@@ -53,9 +53,6 @@ public class Instrucciones extends JFrame {
         configurarLayout();
     }
 
-
-
-
     private void configurarComponentes() {
 
         // =====================================================
@@ -83,7 +80,7 @@ public class Instrucciones extends JFrame {
         // =====================================================
         botonIniciar.setBackground(ColorConstants.ROJO_VINO);
         botonIniciar.setForeground(ColorConstants.BLANCO);
-        botonIniciar.setText(Constants.BOTON_SGUIENTE_INSTRUCCIONES);
+        botonIniciar.setText(Constants.BOTON_INICIAR_INSTRUCCIONES);
         botonIniciar.setBorder(null);
     }
 
@@ -242,10 +239,6 @@ public class Instrucciones extends JFrame {
 
         pack();
     }
-
-
-
-
 
     private void configurarInstrucciones() {
 

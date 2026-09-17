@@ -61,8 +61,6 @@ public class Aviso extends JFrame {
         configurarLayout();
     }
 
-
-
     private void configurarAviso() {
 
         textoAviso.setText(AvisoConstants.AVISO);
@@ -101,8 +99,6 @@ public class Aviso extends JFrame {
         getContentPane().setBackground(ColorConstants.BLANCO);
     }
 
-
-
     private void configurarComponentes(){
 
         panelAviso.setBackground(ColorConstants.BLANCO);
@@ -137,17 +133,13 @@ public class Aviso extends JFrame {
         );
 
         botonSiguiente.addActionListener(
-                this::siguiente
+                this::siguienteVista
         );
 
         botonAvisoPrivacidad.addActionListener(
                 this::abrirAvisoPrivacidad
         );
     }
-
-
-
-
 
     private void configurarLayout(){
         // =====================================================
@@ -342,7 +334,7 @@ public class Aviso extends JFrame {
         );
     }
 
-    private void siguiente(ActionEvent evento) {
+    private void siguienteVista(ActionEvent evento) {
 
         DatosView ventanaDatosView = new DatosView();
 

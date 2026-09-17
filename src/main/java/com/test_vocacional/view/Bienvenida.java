@@ -21,7 +21,7 @@ import java.awt.Image;
 
 public class Bienvenida extends JFrame {
 
-    private JButton botonComenzar;
+    private JButton botonSiguiente;
     private JLabel etiquetaLogo;
     private JLabel etiquetaTitulo;
     private JLabel etiquetaSubtitulo;
@@ -47,14 +47,12 @@ public class Bienvenida extends JFrame {
         etiquetaLogo = new JLabel();
         etiquetaTitulo = new JLabel();
         etiquetaSubtitulo = new JLabel();
-        botonComenzar = new JButton();
+        botonSiguiente = new JButton();
 
         configurarComponentes();
         configurarEventos();
         configurarLayout();
     }
-
-
 
     private void configurarPanel(){
         JPanelConFondo panelConFondo = new JPanelConFondo();
@@ -62,13 +60,12 @@ public class Bienvenida extends JFrame {
         panelConFondo.add(etiquetaLogo);
         panelConFondo.add(etiquetaTitulo);
         panelConFondo.add(etiquetaSubtitulo);
-        panelConFondo.add(botonComenzar);
+        panelConFondo.add(botonSiguiente);
 
         setContentPane(panelConFondo);
     }
 
-
-    private class JPanelConFondo extends JPanel {
+    private static class JPanelConFondo extends JPanel {
 
         private final Image imagenFondo;
 
@@ -109,8 +106,6 @@ public class Bienvenida extends JFrame {
         }
     }
 
-
-
     private void configurarComponentes(){
 
         panelBienvenida.setBackground(ColorConstants.BLANCO);
@@ -125,16 +120,16 @@ public class Bienvenida extends JFrame {
         etiquetaSubtitulo.setForeground(ColorConstants.BLANCO);
         etiquetaSubtitulo.setText(Constants.SUBTITULO_BIENVENIDO);
 
-        botonComenzar.setBackground(ColorConstants.ROJO_VINO);
-        botonComenzar.setForeground(ColorConstants.BLANCO);
-        botonComenzar.setText(Constants.BOTON_COMENZAR_BIENVENIDO);
-        botonComenzar.setBorder(null);
+        botonSiguiente.setBackground(ColorConstants.ROJO_VINO);
+        botonSiguiente.setForeground(ColorConstants.BLANCO);
+        botonSiguiente.setText(Constants.BOTON_SIGUIENTE_BIENVENIDO);
+        botonSiguiente.setBorder(null);
 
     }
 
     private void configurarEventos(){
-        botonComenzar.addActionListener(
-                this::comenzarTest
+        botonSiguiente.addActionListener(
+                this::siguienteVista
         );
     }
 
@@ -159,7 +154,7 @@ public class Bienvenida extends JFrame {
                         .addComponent(etiquetaTitulo)
                         .addComponent(etiquetaSubtitulo)
                         .addComponent(
-                                botonComenzar,
+                                botonSiguiente,
                                 GroupLayout.PREFERRED_SIZE,
                                 150,
                                 GroupLayout.PREFERRED_SIZE
@@ -179,7 +174,7 @@ public class Bienvenida extends JFrame {
                         .addComponent(etiquetaSubtitulo)
                         .addGap(49)
                         .addComponent(
-                                botonComenzar,
+                                botonSiguiente,
                                 GroupLayout.PREFERRED_SIZE,
                                 30,
                                 GroupLayout.PREFERRED_SIZE
@@ -232,10 +227,7 @@ public class Bienvenida extends JFrame {
         pack();
     }
 
-
-
-
-    private void comenzarTest(ActionEvent evento) {
+    private void siguienteVista(ActionEvent evento) {
 
         Aviso ventanaAviso = new Aviso();
 

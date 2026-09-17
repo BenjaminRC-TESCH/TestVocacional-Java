@@ -10,22 +10,22 @@ public class Constants {
     ///VENTANA BIENVENIDA
     public static final String TITULO_BIENVENIDO = "BIENVENIDO";
     public static final String SUBTITULO_BIENVENIDO = "AL TEST DE ORIENTACIÓN VOCACIONAL";
-    public static final String BOTON_COMENZAR_BIENVENIDO = "Comenzar";
+    public static final String BOTON_SIGUIENTE_BIENVENIDO = "Siguiente";
 
     ///VENTANA AVISO
     public static final String TITULO_AVISO = "Aviso de privacidad";
     public static final String CASILLA_ACEPTACION_AVISO = "He leído y acepto el";
     public static final String BOTON_AVISO_PRIVACIDAD = "Aviso de Privacidad";
-    public static final String BOTON_SIGUIENTE_AVISO = "Iniciar";
+    public static final String BOTON_SIGUIENTE_AVISO = "Siguiente";
     public static final String ENCABEZADO_AVISO_PRIVACIDAD_AVISO = "AVISO DE PRIVACIDAD";
 
     ///VENTANA DATOS
     public static final String TITULO_DATOS = "INGRESA TUS DATOS";
-    public static final String BOTON_ACEPTAR_DATOS = "Aceptar";
+    public static final String BOTON_SIGUIENTE_DATOS = "Siguiente";
 
     ///VENTANA INSTRUCCIONES
     public static final String TITULO_INSTRUCCIONES = "Instrucciones";
-    public static final String BOTON_SGUIENTE_INSTRUCCIONES = "Iniciar";
+    public static final String BOTON_INICIAR_INSTRUCCIONES = "Iniciar";
 
     ///VENTANA INTERESES
     public static final String TITULO_INTERESES = "Perfil mis intereses";

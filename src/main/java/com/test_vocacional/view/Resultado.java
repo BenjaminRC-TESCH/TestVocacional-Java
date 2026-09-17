@@ -48,7 +48,7 @@ public class Resultado extends JFrame {
     public static int valorAptitudesMC;
     public static int valorAptitudesAL;
 
-    private JButton botonAceptar;
+    private JButton botonSiguiente;
     private JLabel etiquetaTitulo;
     private JPanel panelPrincipal;
     private JPanel panelResultados;
@@ -71,20 +71,16 @@ public class Resultado extends JFrame {
         );
     }
 
-
-
     private void initComponents() {
         panelPrincipal = new JPanel();
         etiquetaTitulo = new JLabel();
         panelResultados = new JPanel();
-        botonAceptar = new JButton();
+        botonSiguiente = new JButton();
 
         configurarComponentes();
         configurarEventos();
         configurarLayout();
     }
-
-
 
     private void configurarComponentes() {
 
@@ -95,14 +91,14 @@ public class Resultado extends JFrame {
 
         panelResultados.setPreferredSize(new Dimension(550, 300));
 
-        botonAceptar.setBackground(new Color(105, 20, 50));
-        botonAceptar.setForeground(ColorConstants.BLANCO);
-        botonAceptar.setText(Constants.BOTON_ACEPTAR_RESULTADOS);
+        botonSiguiente.setBackground(new Color(105, 20, 50));
+        botonSiguiente.setForeground(ColorConstants.BLANCO);
+        botonSiguiente.setText(Constants.BOTON_ACEPTAR_RESULTADOS);
     }
 
     private void configurarEventos() {
-        botonAceptar.addActionListener(
-                this::aceptar
+        botonSiguiente.addActionListener(
+                this::siguienteVista
         );
     }
 
@@ -135,7 +131,7 @@ public class Resultado extends JFrame {
                                 GroupLayout.PREFERRED_SIZE
                         )
                         .addComponent(
-                                botonAceptar,
+                                botonSiguiente,
                                 GroupLayout.PREFERRED_SIZE,
                                 150,
                                 GroupLayout.PREFERRED_SIZE
@@ -168,7 +164,7 @@ public class Resultado extends JFrame {
 
                         // Botón
                         .addComponent(
-                                botonAceptar,
+                                botonSiguiente,
                                 GroupLayout.PREFERRED_SIZE,
                                 25,
                                 GroupLayout.PREFERRED_SIZE
@@ -212,10 +208,6 @@ public class Resultado extends JFrame {
 
         pack();
     }
-
-
-
-
 
     public void crearGrafico() {
 
@@ -419,8 +411,7 @@ public class Resultado extends JFrame {
         }
     }
 
-
-    private void aceptar(ActionEvent evt) {
+    private void siguienteVista(ActionEvent evt) {
         ResultadosVocacionales resultadosVocacionales = new ResultadosVocacionales();
         resultadosVocacionales.puntajeIntereses = this.puntajeIntereses;
         resultadosVocacionales.puntajeAptitudes = this.puntajeAptitudes;

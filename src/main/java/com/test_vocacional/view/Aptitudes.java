@@ -48,12 +48,10 @@ public class Aptitudes extends JFrame {
     private RadioButtonCustom opcion2;
     private RadioButtonCustom opcion3;
     private RadioButtonCustom opcion4;
-    private JButton botonAceptar;
+    private JButton botonSiguiente;
     private ButtonGroup grupoOpciones;
 
     private Estudiante estudiante;
-
-
 
     public Aptitudes(Estudiante estudiante) {
 
@@ -84,19 +82,17 @@ public class Aptitudes extends JFrame {
         opcion3 = new RadioButtonCustom();
         opcion4 = new RadioButtonCustom();
 
-        botonAceptar = new JButton();
+        botonSiguiente = new JButton();
 
         configurarComponentes();
         configurarEventos();
         configurarLayout();
     }
 
-
-
     private void mostrarPregunta() {
 
         if (preguntaActual >= AptitudesConstants.PREGUNTAS.length) {
-            finalizarCuestionario();
+            siguientesPreguntas();
             return;
         }
 
@@ -108,11 +104,8 @@ public class Aptitudes extends JFrame {
 
         limpiarOpciones();
 
-        botonAceptar.setEnabled(false);
+        botonSiguiente.setEnabled(false);
     }
-
-
-
 
     private void configurarComponentes() {
 
@@ -137,11 +130,11 @@ public class Aptitudes extends JFrame {
         opcion3.setText(Constants.OPCION3);
         opcion4.setText(Constants.OPCION4);
 
-        botonAceptar.setBackground(ColorConstants.ROJO_VINO);
-        botonAceptar.setForeground(ColorConstants.BLANCO);
-        botonAceptar.setText(Constants.BOTON_ACEPTAR_APTITUDES);
-        botonAceptar.setBorder(null);
-        botonAceptar.setEnabled(false);
+        botonSiguiente.setBackground(ColorConstants.ROJO_VINO);
+        botonSiguiente.setForeground(ColorConstants.BLANCO);
+        botonSiguiente.setText(Constants.BOTON_ACEPTAR_APTITUDES);
+        botonSiguiente.setBorder(null);
+        botonSiguiente.setEnabled(false);
 
         grupoOpciones.add(opcion0);
         grupoOpciones.add(opcion1);
@@ -158,7 +151,7 @@ public class Aptitudes extends JFrame {
         opcion3.addActionListener(e -> habilitarBoton());
         opcion4.addActionListener(e -> habilitarBoton());
 
-        botonAceptar.addActionListener(
+        botonSiguiente.addActionListener(
                 e -> avanzarPregunta()
         );
     }
@@ -199,7 +192,7 @@ public class Aptitudes extends JFrame {
 
                         // Botón
                         .addComponent(
-                                botonAceptar,
+                                botonSiguiente,
                                 GroupLayout.PREFERRED_SIZE,
                                 150,
                                 GroupLayout.PREFERRED_SIZE
@@ -254,7 +247,7 @@ public class Aptitudes extends JFrame {
 
                         // Botón
                         .addComponent(
-                                botonAceptar,
+                                botonSiguiente,
                                 GroupLayout.PREFERRED_SIZE,
                                 30,
                                 GroupLayout.PREFERRED_SIZE
@@ -295,11 +288,8 @@ public class Aptitudes extends JFrame {
         );
     }
 
-
-
-
     private void habilitarBoton() {
-        botonAceptar.setEnabled(true);
+        botonSiguiente.setEnabled(true);
     }
 
     private void avanzarPregunta() {
@@ -310,10 +300,6 @@ public class Aptitudes extends JFrame {
 
         mostrarPregunta();
     }
-
-
-
-
 
     private String formatearPregunta(String pregunta) {
 
@@ -436,7 +422,7 @@ public class Aptitudes extends JFrame {
         grupoOpciones.clearSelection();
     }
 
-    private void finalizarCuestionario() {
+    private void siguientesPreguntas() {
 
         for (int i = 0; i < respuestas.size(); i++) {
 

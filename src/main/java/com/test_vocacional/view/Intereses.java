@@ -65,7 +65,7 @@ public class Intereses extends JFrame {
     private RadioButtonCustom opcion3;
     private RadioButtonCustom opcion4;
 
-    private JButton botonAceptar;
+    private JButton botonFinalizar;
 
     private ButtonGroup grupoOpciones;
 
@@ -88,7 +88,6 @@ public class Intereses extends JFrame {
         mostrarPregunta();
     }
 
-
     private void initComponents() {
 
         grupoOpciones = new ButtonGroup();
@@ -104,7 +103,7 @@ public class Intereses extends JFrame {
         opcion3 = new RadioButtonCustom();
         opcion4 = new RadioButtonCustom();
 
-        botonAceptar = new JButton();
+        botonFinalizar = new JButton();
 
 
         configurarComponentes();
@@ -148,7 +147,7 @@ public class Intereses extends JFrame {
 
                         // Botón
                         .addComponent(
-                                botonAceptar,
+                                botonFinalizar,
                                 GroupLayout.PREFERRED_SIZE,
                                 150,
                                 GroupLayout.PREFERRED_SIZE
@@ -203,7 +202,7 @@ public class Intereses extends JFrame {
 
                         // Botón
                         .addComponent(
-                                botonAceptar,
+                                botonFinalizar,
                                 GroupLayout.PREFERRED_SIZE,
                                 30,
                                 GroupLayout.PREFERRED_SIZE
@@ -267,11 +266,11 @@ public class Intereses extends JFrame {
         opcion3.setText(Constants.OPCION3);
         opcion4.setText(Constants.OPCION4);
 
-        botonAceptar.setBackground(ColorConstants.ROJO_VINO);
-        botonAceptar.setForeground(ColorConstants.BLANCO);
-        botonAceptar.setText(Constants.BOTON_ACEPTAR_INTERESES);
-        botonAceptar.setBorder(null);
-        botonAceptar.setEnabled(false);
+        botonFinalizar.setBackground(ColorConstants.ROJO_VINO);
+        botonFinalizar.setForeground(ColorConstants.BLANCO);
+        botonFinalizar.setText(Constants.BOTON_ACEPTAR_INTERESES);
+        botonFinalizar.setBorder(null);
+        botonFinalizar.setEnabled(false);
 
         grupoOpciones.add(opcion0);
         grupoOpciones.add(opcion1);
@@ -288,14 +287,14 @@ public class Intereses extends JFrame {
         opcion3.addActionListener(e -> habilitarBoton());
         opcion4.addActionListener(e -> habilitarBoton());
 
-        botonAceptar.addActionListener(
+        botonFinalizar.addActionListener(
                 e -> avanzarPregunta()
         );
     }
 
     private void habilitarBoton() {
 
-        botonAceptar.setEnabled(true);
+        botonFinalizar.setEnabled(true);
     }
 
     private void avanzarPregunta() {
@@ -306,8 +305,6 @@ public class Intereses extends JFrame {
 
         mostrarPregunta();
     }
-
-
 
     private void mostrarPregunta() {
 
@@ -324,7 +321,7 @@ public class Intereses extends JFrame {
 
         limpiarOpciones();
 
-        botonAceptar.setEnabled(false);
+        botonFinalizar.setEnabled(false);
     }
 
     private String formatearPregunta(String pregunta) {
@@ -351,8 +348,6 @@ public class Intereses extends JFrame {
 
         return textoFormateado.toString();
     }
-
-
 
     private void guardarRespuesta() {
 
@@ -448,7 +443,6 @@ public class Intereses extends JFrame {
 
         grupoOpciones.clearSelection();
     }
-
 
     private void finalizarCuestionario() {
 
