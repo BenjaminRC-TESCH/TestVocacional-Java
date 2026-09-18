@@ -12,6 +12,23 @@ import java.util.List;
 
 public class InteresesController {
 
+    // =========================================================
+    // RESULTADOS DE INTERESES
+    // =========================================================
+    public static int interesServicioSocial;
+    public static int interesEjecutivoPersuasiva;
+    public static int interesVerbal;
+    public static int interesArtisticoPlastica;
+    public static int interesMusical;
+    public static int interesOrganizacion;
+    public static int interesCientifica;
+    public static int interesCalculo;
+    public static int interesMecanicoConstructiva;
+    public static int interesTrabajoAlAireLibre;
+
+    // =========================================================
+    // DATOS DEL CUESTIONARIO
+    // =========================================================
     private int preguntaActual = 0;
 
     private final List<Integer> respuestas = new ArrayList<>();
@@ -25,17 +42,21 @@ public class InteresesController {
     // =========================================================
     // CONSTRUCTOR
     // =========================================================
-
     public InteresesController(InteresesView interesesView, Estudiante estudiante) {
         this.interesesView = interesesView;
         this.estudiante = estudiante;
     }
 
+    // =========================================================
+    // INICIAR CUESTIONARIO
+    // =========================================================
     public void iniciarCuestionario() {
-
         mostrarPregunta();
     }
 
+    // =========================================================
+    // MOSTRAR PREGUNTA
+    // =========================================================
     private void mostrarPregunta() {
 
         if (preguntaActual >= InteresesConstants.PREGUNTAS.length) {
@@ -51,6 +72,9 @@ public class InteresesController {
         );
     }
 
+    // =========================================================
+    // OBTENER Y GUARDAR RESPUESTA
+    // =========================================================
     private void guardarRespuesta() {
 
         int respuesta =
@@ -68,6 +92,9 @@ public class InteresesController {
         );
     }
 
+    // =========================================================
+    // AVANZAR PREGUNTA
+    // =========================================================
     public void avanzarPregunta() {
 
         guardarRespuesta();
@@ -77,6 +104,9 @@ public class InteresesController {
         mostrarPregunta();
     }
 
+    // =========================================================
+    // FORMATEAR PREGUNTA
+    // =========================================================
     private String formatearPregunta(String pregunta) {
 
         if (pregunta.length() <= 60) {
@@ -104,58 +134,51 @@ public class InteresesController {
         return textoFormateado.toString();
     }
 
+    // =========================================================
+    // ACTUALIZAR INTERÉS
+    // =========================================================
     private void actualizarInteres(int posicion, int respuesta) {
 
         switch (posicion) {
 
             case 0:
-                datosVocacionales.interesServicioSocial
-                        += respuesta;
+                interesServicioSocial += respuesta;
                 break;
 
             case 1:
-                datosVocacionales.interesEjecutivoPersuasiva
-                        += respuesta;
+                interesEjecutivoPersuasiva += respuesta;
                 break;
 
             case 2:
-                datosVocacionales.interesVerbal
-                        += respuesta;
+                interesVerbal += respuesta;
                 break;
 
             case 3:
-                datosVocacionales.interesArtisticoPlastica
-                        += respuesta;
+                interesArtisticoPlastica += respuesta;
                 break;
 
             case 4:
-                datosVocacionales.interesMusical
-                        += respuesta;
+                interesMusical += respuesta;
                 break;
 
             case 5:
-                datosVocacionales.interesOrganizacion
-                        += respuesta;
+                interesOrganizacion += respuesta;
                 break;
 
             case 6:
-                datosVocacionales.interesCientifica
-                        += respuesta;
+                interesCientifica += respuesta;
                 break;
 
             case 7:
-                datosVocacionales.interesCalculo
-                        += respuesta;
+                interesCalculo += respuesta;
                 break;
 
             case 8:
-                datosVocacionales.interesMecanicoConstructiva
-                        += respuesta;
+                interesMecanicoConstructiva += respuesta;
                 break;
 
             case 9:
-                datosVocacionales.interesTrabajoAlAireLibre
-                        += respuesta;
+                interesTrabajoAlAireLibre += respuesta;
                 break;
 
             default:
@@ -163,6 +186,9 @@ public class InteresesController {
         }
     }
 
+    // =========================================================
+    // FINALIZAR CUESTIONARIO
+    // =========================================================
     private void finalizarCuestionario() {
 
         for (int i = 0; i < respuestas.size(); i++) {
@@ -175,27 +201,21 @@ public class InteresesController {
             );
         }
 
+        /*
+         * Se conservan las mismas asignaciones
+         * que tenías originalmente.
+         */
 
-
-        datosVocacionales.interesServicioSocial = datosVocacionales.interesServicioSocial;
-
-        datosVocacionales.interesEjecutivoPersuasiva = datosVocacionales.interesEjecutivoPersuasiva;
-
-        datosVocacionales.interesVerbal = datosVocacionales.interesVerbal;
-
-        datosVocacionales.interesArtisticoPlastica = datosVocacionales.interesArtisticoPlastica;
-
-        datosVocacionales.interesMusical = datosVocacionales.interesMusical;
-
-        datosVocacionales.interesOrganizacion = datosVocacionales.interesOrganizacion;
-
-        datosVocacionales.interesCientifica = datosVocacionales.interesCientifica;
-
-        datosVocacionales.interesCalculo = datosVocacionales.interesCalculo;
-
-        datosVocacionales.interesMecanicoConstructiva = datosVocacionales.interesMecanicoConstructiva;
-
-        datosVocacionales.interesTrabajoAlAireLibre = datosVocacionales.interesTrabajoAlAireLibre;
+        datosVocacionales.interesServicioSocial = interesServicioSocial;
+        datosVocacionales.interesEjecutivoPersuasiva = interesEjecutivoPersuasiva;
+        datosVocacionales.interesVerbal = interesVerbal;
+        datosVocacionales.interesArtisticoPlastica = interesArtisticoPlastica;
+        datosVocacionales.interesMusical = interesMusical;
+        datosVocacionales.interesOrganizacion = interesOrganizacion;
+        datosVocacionales.interesCientifica = interesCientifica;
+        datosVocacionales.interesCalculo = interesCalculo;
+        datosVocacionales.interesMecanicoConstructiva = interesMecanicoConstructiva;
+        datosVocacionales.interesTrabajoAlAireLibre = interesTrabajoAlAireLibre;
 
         AptitudesView aptitudesView = new AptitudesView(estudiante);
 

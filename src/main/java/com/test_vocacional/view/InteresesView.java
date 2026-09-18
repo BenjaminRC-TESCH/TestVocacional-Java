@@ -43,9 +43,17 @@ public class InteresesView extends JFrame {
     public static int interesMecanicoConstructiva;
     public static int interesTrabajoAlAireLibre;
 
+    // =========================================================
+    // DATOS DEL CUESTIONARIO
+    // =========================================================
+
     private int preguntaActual;
 
     private final List<Integer> respuestas = new ArrayList<>();
+
+    // =========================================================
+    // COMPONENTES
+    // =========================================================
 
     private JPanel panelPrincipal;
 
@@ -62,14 +70,13 @@ public class InteresesView extends JFrame {
 
     private ButtonGroup grupoOpciones;
 
-    private final Estudiante estudiante;
+    private Estudiante estudiante;
 
-    private final InteresesController controlador;
+    private final InteresesController interesesController;
 
     // =========================================================
     // CONSTRUCTOR
     // =========================================================
-
     public InteresesView(Estudiante estudiante) {
 
         this.estudiante = estudiante;
@@ -82,11 +89,19 @@ public class InteresesView extends JFrame {
                 550
         );
 
-        controlador = new InteresesController(this, estudiante);
+        interesesController =
+                new InteresesController(
+                        this,
+                        estudiante
+                );
 
-        controlador.iniciarCuestionario();
+        interesesController.iniciarCuestionario();
     }
 
+
+    // =========================================================
+    // INICIALIZAR COMPONENTES
+    // =========================================================
     private void initComponents() {
 
         grupoOpciones = new ButtonGroup();
@@ -109,16 +124,57 @@ public class InteresesView extends JFrame {
         configurarLayout();
     }
 
+    // =========================================================
+    // CONFIGURAR COMPONENTES
+    // =========================================================
     private void configurarComponentes() {
 
-        etiquetaTitulo.setText(Constants.TITULO_INTERESES);
-        etiquetaTitulo.setFont(new Font(FontConstants.ROBOTO_BLACK, Font.PLAIN, 24));
+        // =====================================================
+        // PANEL
+        // =====================================================
 
-        panelPrincipal.setBackground(ColorConstants.BLANCO);
+        panelPrincipal.setBackground(
+                ColorConstants.BLANCO
+        );
 
-        etiquetaPregunta.setFont(new Font(FontConstants.ROBOTO_MEDIUM, Font.PLAIN, 18));
+        // =====================================================
+        // TÍTULO
+        // =====================================================
 
-        Font fuenteOpciones = new Font(FontConstants.ROBOTO_LIGHT, Font.PLAIN, 14);
+        etiquetaTitulo.setText(
+                Constants.TITULO_INTERESES
+        );
+
+        etiquetaTitulo.setFont(
+                new Font(
+                        FontConstants.ROBOTO_BLACK,
+                        Font.PLAIN,
+                        24
+                )
+        );
+
+        // =====================================================
+        // PREGUNTA
+        // =====================================================
+
+        etiquetaPregunta.setFont(
+                new Font(
+                        FontConstants.ROBOTO_MEDIUM,
+                        Font.PLAIN,
+                        18
+                )
+        );
+
+        // =====================================================
+        // OPCIONES
+        // =====================================================
+
+        Font fuenteOpciones =
+                new Font(
+                        FontConstants.ROBOTO_LIGHT,
+                        Font.PLAIN,
+                        14
+                );
 
         opcion0.setFont(fuenteOpciones);
         opcion1.setFont(fuenteOpciones);
@@ -132,19 +188,128 @@ public class InteresesView extends JFrame {
         opcion3.setText(Constants.OPCION3);
         opcion4.setText(Constants.OPCION4);
 
-        botonFinalizar.setBackground(ColorConstants.ROJO_VINO);
-        botonFinalizar.setForeground(ColorConstants.BLANCO);
-        botonFinalizar.setText(Constants.BOTON_ACEPTAR_INTERESES);
-        botonFinalizar.setBorder(null);
-        botonFinalizar.setEnabled(false);
+        // =====================================================
+        // GRUPO
+        // =====================================================
 
         grupoOpciones.add(opcion0);
         grupoOpciones.add(opcion1);
         grupoOpciones.add(opcion2);
         grupoOpciones.add(opcion3);
         grupoOpciones.add(opcion4);
+
+        // =====================================================
+        // BOTÓN
+        // =====================================================
+
+        botonFinalizar.setBackground(
+                ColorConstants.ROJO_VINO
+        );
+
+        botonFinalizar.setForeground(
+                ColorConstants.BLANCO
+        );
+
+        botonFinalizar.setText(
+                Constants.BOTON_ACEPTAR_INTERESES
+        );
+
+        botonFinalizar.setBorder(null);
+
+        botonFinalizar.setEnabled(false);
     }
 
+    // =========================================================
+    // EVENTOS
+    // =========================================================
+    private void configurarEventos() {
+
+        opcion0.addActionListener(
+                evento -> habilitarBoton()
+        );
+
+        opcion1.addActionListener(
+                evento -> habilitarBoton()
+        );
+
+        opcion2.addActionListener(
+                evento -> habilitarBoton()
+        );
+
+        opcion3.addActionListener(
+                evento -> habilitarBoton()
+        );
+
+        opcion4.addActionListener(
+                evento -> habilitarBoton()
+        );
+
+        botonFinalizar.addActionListener(
+                evento -> interesesController.avanzarPregunta()
+        );
+    }
+
+    // =========================================================
+    // LÓGICA DE LA INTERFAZ
+    // =========================================================
+    private void habilitarBoton() {
+
+        botonFinalizar.setEnabled(true);
+    }
+
+    // =========================================================
+    // MÉTODO UTILIZADO POR EL CONTROLLER
+    // =========================================================
+    public void mostrarPregunta(String pregunta) {
+
+        etiquetaPregunta.setText(
+                pregunta
+        );
+
+        limpiarOpciones();
+
+        botonFinalizar.setEnabled(false);
+    }
+
+    // =========================================================
+    // OBTENER RESPUESTA
+    // =========================================================
+    public int obtenerRespuestaSeleccionada() {
+
+        if (opcion0.isSelected()) {
+            return 0;
+        }
+
+        if (opcion1.isSelected()) {
+            return 1;
+        }
+
+        if (opcion2.isSelected()) {
+            return 2;
+        }
+
+        if (opcion3.isSelected()) {
+            return 3;
+        }
+
+        if (opcion4.isSelected()) {
+            return 4;
+        }
+
+        return -1;
+    }
+
+    // =========================================================
+    // LIMPIAR OPCIONES
+    // =========================================================
+    private void limpiarOpciones() {
+
+        grupoOpciones.clearSelection();
+    }
+
+    // =========================================================
+    // LAYOUT
+    // =========================================================
     private void configurarLayout() {
 
         GroupLayout layout = new GroupLayout(panelPrincipal);
@@ -276,79 +441,4 @@ public class InteresesView extends JFrame {
                         )
         );
     }
-
-    private void configurarEventos() {
-
-        opcion0.addActionListener(
-                evento -> habilitarBoton()
-        );
-
-        opcion1.addActionListener(
-                evento -> habilitarBoton()
-        );
-
-        opcion2.addActionListener(
-                evento -> habilitarBoton()
-        );
-
-        opcion3.addActionListener(
-                evento -> habilitarBoton()
-        );
-
-        opcion4.addActionListener(
-                evento -> habilitarBoton()
-        );
-
-        botonFinalizar.addActionListener(
-                evento -> controlador.avanzarPregunta()
-        );
-    }
-
-    // LÓGICA DE LA INTERFAZ
-    private void habilitarBoton() {
-
-        botonFinalizar.setEnabled(true);
-    }
-
-    public void mostrarPregunta(String pregunta) {
-
-        etiquetaPregunta.setText(
-                pregunta
-        );
-
-        limpiarOpciones();
-
-        botonFinalizar.setEnabled(false);
-    }
-
-    public int obtenerRespuestaSeleccionada() {
-
-        if (opcion0.isSelected()) {
-            return 0;
-        }
-
-        if (opcion1.isSelected()) {
-            return 1;
-        }
-
-        if (opcion2.isSelected()) {
-            return 2;
-        }
-
-        if (opcion3.isSelected()) {
-            return 3;
-        }
-
-        if (opcion4.isSelected()) {
-            return 4;
-        }
-
-        return -1;
-    }
-
-    private void limpiarOpciones() {
-
-        grupoOpciones.clearSelection();
-    }
-
 }
