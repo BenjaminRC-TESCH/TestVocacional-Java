@@ -86,7 +86,7 @@ public class Instrucciones extends JFrame {
 
     private void configurarEventos() {
         botonIniciar.addActionListener(
-                this::iniciarTest
+                E -> iniciarTest()
         );
     }
 
@@ -270,9 +270,9 @@ public class Instrucciones extends JFrame {
         getContentPane().setBackground(ColorConstants.BLANCO);
     }
 
-    private void iniciarTest(ActionEvent evento) {
+    private void iniciarTest() {
 
-        Intereses intereses = new Intereses(estudiante);
+        InteresesView intereses = new InteresesView(estudiante);
 
         intereses.setVisible(true);
         dispose();

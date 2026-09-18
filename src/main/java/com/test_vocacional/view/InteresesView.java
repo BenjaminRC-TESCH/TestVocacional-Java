@@ -6,6 +6,7 @@ import com.test_vocacional.constant.Constants;
 import com.test_vocacional.constant.InteresesConstants;
 import com.test_vocacional.constant.colors.ColorConstants;
 import com.test_vocacional.constant.font.FontConstants;
+import com.test_vocacional.controller.InteresesController;
 import com.test_vocacional.model.DatosVocacionales;
 import com.test_vocacional.model.Estudiante;
 import com.test_vocacional.util.FormatQuestion;
@@ -20,7 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 
-public class Intereses extends JFrame {
+public class InteresesView extends JFrame {
 
     // =========================================================
     // CONFIGURACIÓN
@@ -42,17 +43,9 @@ public class Intereses extends JFrame {
     public static int interesMecanicoConstructiva;
     public static int interesTrabajoAlAireLibre;
 
-    // =========================================================
-    // DATOS DEL CUESTIONARIO
-    // =========================================================
-
     private int preguntaActual;
 
     private final List<Integer> respuestas = new ArrayList<>();
-
-    // =========================================================
-    // COMPONENTES
-    // =========================================================
 
     private JPanel panelPrincipal;
 
@@ -69,23 +62,29 @@ public class Intereses extends JFrame {
 
     private ButtonGroup grupoOpciones;
 
-    private Estudiante estudiante;
+    private final Estudiante estudiante;
+
+    private final InteresesController controlador;
 
     // =========================================================
     // CONSTRUCTOR
     // =========================================================
 
-    public Intereses(Estudiante estudiante) {
+    public InteresesView(Estudiante estudiante) {
+
         this.estudiante = estudiante;
 
         initComponents();
+
         WindowConfig.configurar(
                 this,
                 600,
                 550
         );
 
-        mostrarPregunta();
+        controlador = new InteresesController(this, estudiante);
+
+        controlador.iniciarCuestionario();
     }
 
     private void initComponents() {
@@ -105,10 +104,45 @@ public class Intereses extends JFrame {
 
         botonFinalizar = new JButton();
 
-
         configurarComponentes();
         configurarEventos();
         configurarLayout();
+    }
+
+    private void configurarComponentes() {
+
+        etiquetaTitulo.setText(Constants.TITULO_INTERESES);
+        etiquetaTitulo.setFont(new Font(FontConstants.ROBOTO_BLACK, Font.PLAIN, 24));
+
+        panelPrincipal.setBackground(ColorConstants.BLANCO);
+
+        etiquetaPregunta.setFont(new Font(FontConstants.ROBOTO_MEDIUM, Font.PLAIN, 18));
+
+        Font fuenteOpciones = new Font(FontConstants.ROBOTO_LIGHT, Font.PLAIN, 14);
+
+        opcion0.setFont(fuenteOpciones);
+        opcion1.setFont(fuenteOpciones);
+        opcion2.setFont(fuenteOpciones);
+        opcion3.setFont(fuenteOpciones);
+        opcion4.setFont(fuenteOpciones);
+
+        opcion0.setText(Constants.OPCION0);
+        opcion1.setText(Constants.OPCION1);
+        opcion2.setText(Constants.OPCION2);
+        opcion3.setText(Constants.OPCION3);
+        opcion4.setText(Constants.OPCION4);
+
+        botonFinalizar.setBackground(ColorConstants.ROJO_VINO);
+        botonFinalizar.setForeground(ColorConstants.BLANCO);
+        botonFinalizar.setText(Constants.BOTON_ACEPTAR_INTERESES);
+        botonFinalizar.setBorder(null);
+        botonFinalizar.setEnabled(false);
+
+        grupoOpciones.add(opcion0);
+        grupoOpciones.add(opcion1);
+        grupoOpciones.add(opcion2);
+        grupoOpciones.add(opcion3);
+        grupoOpciones.add(opcion4);
     }
 
     private void configurarLayout() {
@@ -243,80 +277,43 @@ public class Intereses extends JFrame {
         );
     }
 
-    private void configurarComponentes() {
-
-        etiquetaTitulo.setText(Constants.TITULO_INTERESES);
-        etiquetaTitulo.setFont(new Font(FontConstants.ROBOTO_BLACK, Font.PLAIN, 24));
-
-        panelPrincipal.setBackground(ColorConstants.BLANCO);
-
-        etiquetaPregunta.setFont(new Font(FontConstants.ROBOTO_MEDIUM, Font.PLAIN, 18));
-
-        Font fuenteOpciones = new Font(FontConstants.ROBOTO_LIGHT, Font.PLAIN, 14);
-
-        opcion0.setFont(fuenteOpciones);
-        opcion1.setFont(fuenteOpciones);
-        opcion2.setFont(fuenteOpciones);
-        opcion3.setFont(fuenteOpciones);
-        opcion4.setFont(fuenteOpciones);
-
-        opcion0.setText(Constants.OPCION0);
-        opcion1.setText(Constants.OPCION1);
-        opcion2.setText(Constants.OPCION2);
-        opcion3.setText(Constants.OPCION3);
-        opcion4.setText(Constants.OPCION4);
-
-        botonFinalizar.setBackground(ColorConstants.ROJO_VINO);
-        botonFinalizar.setForeground(ColorConstants.BLANCO);
-        botonFinalizar.setText(Constants.BOTON_ACEPTAR_INTERESES);
-        botonFinalizar.setBorder(null);
-        botonFinalizar.setEnabled(false);
-
-        grupoOpciones.add(opcion0);
-        grupoOpciones.add(opcion1);
-        grupoOpciones.add(opcion2);
-        grupoOpciones.add(opcion3);
-        grupoOpciones.add(opcion4);
-    }
-
     private void configurarEventos() {
 
-        opcion0.addActionListener(e -> habilitarBoton());
-        opcion1.addActionListener(e -> habilitarBoton());
-        opcion2.addActionListener(e -> habilitarBoton());
-        opcion3.addActionListener(e -> habilitarBoton());
-        opcion4.addActionListener(e -> habilitarBoton());
+        opcion0.addActionListener(
+                evento -> habilitarBoton()
+        );
+
+        opcion1.addActionListener(
+                evento -> habilitarBoton()
+        );
+
+        opcion2.addActionListener(
+                evento -> habilitarBoton()
+        );
+
+        opcion3.addActionListener(
+                evento -> habilitarBoton()
+        );
+
+        opcion4.addActionListener(
+                evento -> habilitarBoton()
+        );
 
         botonFinalizar.addActionListener(
-                e -> avanzarPregunta()
+                evento -> controlador.avanzarPregunta()
         );
     }
 
+    // LÓGICA DE LA INTERFAZ
     private void habilitarBoton() {
 
         botonFinalizar.setEnabled(true);
     }
 
-    private void avanzarPregunta() {
-
-        guardarRespuesta();
-
-        preguntaActual++;
-
-        mostrarPregunta();
-    }
-
-    private void mostrarPregunta() {
-
-        if (preguntaActual >= InteresesConstants.PREGUNTAS.length) {
-            finalizarCuestionario();
-            return;
-        }
-
-        String pregunta = InteresesConstants.PREGUNTAS[preguntaActual];
+    public void mostrarPregunta(String pregunta) {
 
         etiquetaPregunta.setText(
-                formatearPregunta(pregunta)
+                pregunta
         );
 
         limpiarOpciones();
@@ -324,48 +321,7 @@ public class Intereses extends JFrame {
         botonFinalizar.setEnabled(false);
     }
 
-    private String formatearPregunta(String pregunta) {
-
-        if (pregunta.length() <= 60) {
-            return pregunta;
-        }
-
-        StringBuilder textoFormateado =
-                new StringBuilder("<html>");
-
-        String[] lineas = FormatQuestion.dividirTexto(
-                pregunta,
-                60
-        );
-
-        for (String linea : lineas) {
-            textoFormateado
-                    .append(linea)
-                    .append("<br>");
-        }
-
-        textoFormateado.append("</html>");
-
-        return textoFormateado.toString();
-    }
-
-    private void guardarRespuesta() {
-
-        int respuesta = obtenerRespuestaSeleccionada();
-
-        if (respuesta < 0) {
-            return;
-        }
-
-        respuestas.add(respuesta);
-
-        actualizarInteres(
-                preguntaActual % 10,
-                respuesta
-        );
-    }
-
-    private int obtenerRespuestaSeleccionada() {
+    public int obtenerRespuestaSeleccionada() {
 
         if (opcion0.isSelected()) {
             return 0;
@@ -390,89 +346,9 @@ public class Intereses extends JFrame {
         return -1;
     }
 
-    private void actualizarInteres(int posicion, int respuesta) {
-
-        switch (posicion) {
-
-            case 0:
-                interesServicioSocial += respuesta;
-                break;
-
-            case 1:
-                interesEjecutivoPersuasiva += respuesta;
-                break;
-
-            case 2:
-                interesVerbal += respuesta;
-                break;
-
-            case 3:
-                interesArtisticoPlastica += respuesta;
-                break;
-
-            case 4:
-                interesMusical += respuesta;
-                break;
-
-            case 5:
-                interesOrganizacion += respuesta;
-                break;
-
-            case 6:
-                interesCientifica += respuesta;
-                break;
-
-            case 7:
-                interesCalculo += respuesta;
-                break;
-
-            case 8:
-                interesMecanicoConstructiva += respuesta;
-                break;
-
-            case 9:
-                interesTrabajoAlAireLibre += respuesta;
-                break;
-
-            default:
-                break;
-        }
-    }
-
     private void limpiarOpciones() {
 
         grupoOpciones.clearSelection();
-    }
-
-    private void finalizarCuestionario() {
-
-        for (int i = 0; i < respuestas.size(); i++) {
-
-            System.out.println(
-                    "Pregunta "
-                            + (i + 1)
-                            + ": "
-                            + respuestas.get(i)
-            );
-        }
-
-        DatosVocacionales datosVocacionales = new DatosVocacionales();
-        datosVocacionales.interesServicioSocial = this.interesServicioSocial;
-        datosVocacionales.interesEjecutivoPersuasiva = this.interesEjecutivoPersuasiva;
-        datosVocacionales.interesVerbal = this.interesVerbal;
-        datosVocacionales.interesArtisticoPlastica = this.interesArtisticoPlastica;
-        datosVocacionales.interesMusical = this.interesMusical;
-        datosVocacionales.interesOrganizacion = this.interesOrganizacion;
-        datosVocacionales.interesCientifica = this.interesCientifica;
-        datosVocacionales.interesCalculo = this.interesCalculo;
-        datosVocacionales.interesMecanicoConstructiva = this.interesMecanicoConstructiva;
-        datosVocacionales.interesTrabajoAlAireLibre = this.interesTrabajoAlAireLibre;
-
-        Aptitudes aptitudes = new Aptitudes(estudiante);
-        aptitudes.setVisible(true);
-        dispose();
-
-
     }
 
 }

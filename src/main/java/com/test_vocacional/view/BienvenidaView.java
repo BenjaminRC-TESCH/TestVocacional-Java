@@ -129,7 +129,7 @@ public class Bienvenida extends JFrame {
 
     private void configurarEventos(){
         botonSiguiente.addActionListener(
-                this::siguienteVista
+                e -> siguienteVista()
         );
     }
 
@@ -227,11 +227,11 @@ public class Bienvenida extends JFrame {
         pack();
     }
 
-    private void siguienteVista(ActionEvent evento) {
+    private void siguienteVista() {
 
-        Aviso ventanaAviso = new Aviso();
+        AvisoView ventanaAvisoView = new AvisoView();
 
-        ventanaAviso.setVisible(true);
+        ventanaAvisoView.setVisible(true);
         dispose();
     }
 }

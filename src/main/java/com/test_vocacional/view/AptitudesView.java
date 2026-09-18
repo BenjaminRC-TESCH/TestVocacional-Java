@@ -89,24 +89,6 @@ public class Aptitudes extends JFrame {
         configurarLayout();
     }
 
-    private void mostrarPregunta() {
-
-        if (preguntaActual >= AptitudesConstants.PREGUNTAS.length) {
-            siguientesPreguntas();
-            return;
-        }
-
-        String pregunta = AptitudesConstants.PREGUNTAS[preguntaActual];
-
-        etiquetaPregunta.setText(
-                formatearPregunta(pregunta)
-        );
-
-        limpiarOpciones();
-
-        botonSiguiente.setEnabled(false);
-    }
-
     private void configurarComponentes() {
 
         panelPrincipal.setBackground(ColorConstants.BLANCO);
@@ -289,7 +271,106 @@ public class Aptitudes extends JFrame {
     }
 
     private void habilitarBoton() {
+
         botonSiguiente.setEnabled(true);
+    }
+
+
+
+
+
+    private void siguienteVista() {
+
+        for (int i = 0; i < respuestas.size(); i++) {
+
+            System.out.println(
+                    "Pregunta "
+                            + (i + 1)
+                            + ": "
+                            + respuestas.get(i)
+            );
+        }
+
+        DatosVocacionales datosVocacionales = new DatosVocacionales();
+        datosVocacionales.aptitudesServicioSocial = this.aptitudesServicioSocial;
+        datosVocacionales.aptitudesEjecutivoPersuasiva = this.aptitudesEjecutivoPersuasiva;
+        datosVocacionales.aptitudesVerbal = this.aptitudesVerbal;
+        datosVocacionales.aptitudesArtisticoPlastica = this.aptitudesArtisticoPlastica;
+        datosVocacionales.aptitudesMusical = this.aptitudesMusical;
+        datosVocacionales.aptitudesOrganizacion = this.aptitudesOrganizacion;
+        datosVocacionales.aptitudesCientifica = this.aptitudesCientifica;
+        datosVocacionales.aptitudesCalculo = this.aptitudesCalculo;
+        datosVocacionales.aptitudesMecanicoConstructiva = this.aptitudesMecanicoConstructiva;
+        datosVocacionales.aptitudesTrabajoAlAireLibre = this.aptitudesTrabajoAlAireLibre;
+
+        Resultado resultado = new Resultado(estudiante);
+        resultado.setVisible(true);
+        dispose();
+
+    }
+
+
+
+
+
+    private void mostrarPregunta() {
+
+        if (preguntaActual >= AptitudesConstants.PREGUNTAS.length) {
+            siguienteVista();
+            return;
+        }
+
+        String pregunta = AptitudesConstants.PREGUNTAS[preguntaActual];
+
+        etiquetaPregunta.setText(
+                formatearPregunta(pregunta)
+        );
+
+        limpiarOpciones();
+
+        botonSiguiente.setEnabled(false);
+    }
+
+    private int obtenerRespuestaSeleccionada() {
+
+        if (opcion0.isSelected()) {
+            return 0;
+        }
+
+        if (opcion1.isSelected()) {
+            return 1;
+        }
+
+        if (opcion2.isSelected()) {
+            return 2;
+        }
+
+        if (opcion3.isSelected()) {
+            return 3;
+        }
+
+        if (opcion4.isSelected()) {
+            return 4;
+        }
+
+        return -1;
+    }
+
+    private void guardarRespuesta() {
+
+        int respuesta = obtenerRespuestaSeleccionada();
+
+        if (respuesta < 0) {
+            return;
+        }
+
+        System.out.println(respuesta);
+        respuestas.add(respuesta);
+
+        actualizarInteres(
+                preguntaActual % 10,
+                respuesta
+        );
     }
 
     private void avanzarPregunta() {
@@ -324,48 +405,6 @@ public class Aptitudes extends JFrame {
         textoFormateado.append("</html>");
 
         return textoFormateado.toString();
-    }
-
-    private void guardarRespuesta() {
-
-        int respuesta = obtenerRespuestaSeleccionada();
-
-        if (respuesta < 0) {
-            return;
-        }
-
-        System.out.println(respuesta);
-        respuestas.add(respuesta);
-
-        actualizarInteres(
-                preguntaActual % 10,
-                respuesta
-        );
-    }
-
-    private int obtenerRespuestaSeleccionada() {
-
-        if (opcion0.isSelected()) {
-            return 0;
-        }
-
-        if (opcion1.isSelected()) {
-            return 1;
-        }
-
-        if (opcion2.isSelected()) {
-            return 2;
-        }
-
-        if (opcion3.isSelected()) {
-            return 3;
-        }
-
-        if (opcion4.isSelected()) {
-            return 4;
-        }
-
-        return -1;
     }
 
     private void actualizarInteres(int posicion, int respuesta) {
@@ -420,36 +459,6 @@ public class Aptitudes extends JFrame {
     private void limpiarOpciones() {
 
         grupoOpciones.clearSelection();
-    }
-
-    private void siguientesPreguntas() {
-
-        for (int i = 0; i < respuestas.size(); i++) {
-
-            System.out.println(
-                    "Pregunta "
-                            + (i + 1)
-                            + ": "
-                            + respuestas.get(i)
-            );
-        }
-
-        DatosVocacionales datosVocacionales = new DatosVocacionales();
-        datosVocacionales.aptitudesServicioSocial = this.aptitudesServicioSocial;
-        datosVocacionales.aptitudesEjecutivoPersuasiva = this.aptitudesEjecutivoPersuasiva;
-        datosVocacionales.aptitudesVerbal = this.aptitudesVerbal;
-        datosVocacionales.aptitudesArtisticoPlastica = this.aptitudesArtisticoPlastica;
-        datosVocacionales.aptitudesMusical = this.aptitudesMusical;
-        datosVocacionales.aptitudesOrganizacion = this.aptitudesOrganizacion;
-        datosVocacionales.aptitudesCientifica = this.aptitudesCientifica;
-        datosVocacionales.aptitudesCalculo = this.aptitudesCalculo;
-        datosVocacionales.aptitudesMecanicoConstructiva = this.aptitudesMecanicoConstructiva;
-        datosVocacionales.aptitudesTrabajoAlAireLibre = this.aptitudesTrabajoAlAireLibre;
-
-        Resultado resultado = new Resultado(estudiante);
-        resultado.setVisible(true);
-        dispose();
-
     }
 
 }
