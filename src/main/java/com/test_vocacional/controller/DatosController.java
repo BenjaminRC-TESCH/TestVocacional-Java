@@ -2,7 +2,7 @@ package com.test_vocacional.controller;
 
 import com.test_vocacional.model.Estudiante;
 import com.test_vocacional.view.DatosView;
-import com.test_vocacional.view.Instrucciones;
+import com.test_vocacional.view.InstruccionesView;
 
 public class DatosController {
 
@@ -35,8 +35,8 @@ public class DatosController {
     }
 
     private void abrirInstrucciones(Estudiante estudiante) {
-        Instrucciones instrucciones = new Instrucciones(estudiante);
-        instrucciones.setVisible(true);
+        InstruccionesView instruccionesView = new InstruccionesView(estudiante);
+        instruccionesView.setVisible(true);
         datosView.dispose();
     }
 
