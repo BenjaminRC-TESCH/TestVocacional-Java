@@ -1,11 +1,13 @@
 package com.test_vocacional.controller;
 
+import com.test_vocacional.constant.AptitudesConstants;
 import com.test_vocacional.constant.InteresesConstants;
 import com.test_vocacional.model.DatosVocacionales;
 import com.test_vocacional.model.Estudiante;
 import com.test_vocacional.util.FormatQuestion;
 import com.test_vocacional.view.AptitudesView;
 import com.test_vocacional.view.InteresesView;
+import com.test_vocacional.view.ResultadoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,13 +61,13 @@ public class AptitudesController {
     // =========================================================
     private void mostrarPregunta() {
 
-        if (preguntaActual >= InteresesConstants.PREGUNTAS.length) {
+        if (preguntaActual >= AptitudesConstants.PREGUNTAS.length) {
             finalizarCuestionario();
             return;
         }
 
         String pregunta =
-                InteresesConstants.PREGUNTAS[preguntaActual];
+                AptitudesConstants.PREGUNTAS[preguntaActual];
 
         aptitudesView.mostrarPregunta(
                 formatearPregunta(pregunta)
@@ -77,8 +79,7 @@ public class AptitudesController {
     // =========================================================
     private void guardarRespuesta() {
 
-        int respuesta =
-                aptitudesView.obtenerRespuestaSeleccionada();
+        int respuesta = aptitudesView.obtenerRespuestaSeleccionada();
 
         if (respuesta < 0) {
             return;
@@ -201,10 +202,6 @@ public class AptitudesController {
             );
         }
 
-        /*
-         * Se conservan las mismas asignaciones
-         * que tenías originalmente.
-         */
 
         datosVocacionales.aptitudesServicioSocial = aptitudesServicioSocial;
         datosVocacionales.aptitudesEjecutivoPersuasiva = aptitudesEjecutivoPersuasiva;
@@ -217,9 +214,9 @@ public class AptitudesController {
         datosVocacionales.aptitudesMecanicoConstructiva = aptitudesMecanicoConstructiva;
         datosVocacionales.aptitudesTrabajoAlAireLibre = aptitudesTrabajoAlAireLibre;
 
-        AptitudesView aptitudesView = new AptitudesView(estudiante);
+        ResultadoView resultadoView = new ResultadoView(estudiante);
 
-        aptitudesView.setVisible(true);
+        resultadoView.setVisible(true);
 
         aptitudesView.dispose();
     }
