@@ -48,31 +48,33 @@ CareerPathFinder es una aplicación Java diseñada para ayudar a los estudiantes
 <p align="center"> 
 
   <img width="48%" alt="Screenshot_1" src="https://github.com/user-attachments/assets/45ae798b-9fe4-4965-8219-b338d2d37f68" />
-  <img width="48%" alt="Screenshot_2" src="https://github.com/user-attachments/assets/97754ebf-c0e5-4f10-9b8c-fe55f3a7305a" />
+  <img width="48%" alt="Screenshot_2" src="https://github.com/user-attachments/assets/7cacd2ce-a30b-4fed-8a1d-98f0b3f3b4ce" />
+
 </p> 
 
 <p align="center">
-  <img width="48%" alt="Screenshot_3" src="https://github.com/user-attachments/assets/7e061005-638d-4883-824f-9c911660ad52" />
-  <img width="48%" alt="Screenshot_4" src="https://github.com/user-attachments/assets/5752f260-281b-468b-9efb-22f614cb5c7d" />
+  <img width="48%" alt="Screenshot_3" src="https://github.com/user-attachments/assets/a755ed32-b51c-4ecd-b4e0-2f715b3f9a25" />
+  <img width="48%" alt="Screenshot_4" src="https://github.com/user-attachments/assets/b16f36fb-66fd-4924-8609-ec2b152b9bb7" />
+
 </p> 
 
 <p align="center"> 
-  <img width="48%" alt="Screenshot_5" src="https://github.com/user-attachments/assets/1aaff641-3002-479e-9307-d6ea08cf8bd8" />
-  <img width="48%" alt="Screenshot_6" src="https://github.com/user-attachments/assets/76f3e696-b13f-4c09-a7e8-474ffb37b9ad" />
+  <img width="48%" alt="Screenshot_5" src="https://github.com/user-attachments/assets/b3829884-42ef-4bc1-a3f2-2a9a88aa649a" />
+  <img width="48%" alt="Screenshot_6" src="https://github.com/user-attachments/assets/9a315954-b39e-4efb-9a2f-fc229f6e2e16" />
+
 </p> 
 
 <p align="center"> 
-  <img width="48%" alt="Screenshot_7" src="https://github.com/user-attachments/assets/f66c6745-875c-4bc3-bf4c-d3184ba52634" />
-  <img width="48%" alt="Screenshot_8" src="https://github.com/user-attachments/assets/442403f8-3ede-4986-8ae9-c042414c2d38" />
+  <img width="48%" alt="Screenshot_7" src="https://github.com/user-attachments/assets/582aacb4-44db-4962-9806-f278a1584b5c" />
+  <img width="48%" alt="Screenshot_8" src="https://github.com/user-attachments/assets/9b025c75-55e4-4325-94b0-4ed77c61c74f" />
 </p> 
 
 <p align="center"> 
-  <img width="48%" alt="Screenshot_9" src="https://github.com/user-attachments/assets/e4f95863-7c6b-42fe-babb-ef9aab14ff11" />
-  <img width="48%" alt="Screenshot_8 2" src="https://github.com/user-attachments/assets/bac3676b-6b21-4c37-9cfb-6b6df4019037" />
+  
 </p> 
 
 <p align="center"> 
-  <img width="48%" alt="Screenshot_10" src="https://github.com/user-attachments/assets/6359fe34-6493-457a-b757-2f7c9f1b9dab" />
+  
 </p> 
 
 ## Contribuciones
