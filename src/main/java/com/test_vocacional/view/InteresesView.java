@@ -24,34 +24,6 @@ import javax.swing.GroupLayout;
 public class InteresesView extends JFrame {
 
     // =========================================================
-    // CONFIGURACIÓN
-    // =========================================================
-
-
-    // =========================================================
-    // RESULTADOS DE INTERESES
-    // =========================================================
-
-    public static int interesServicioSocial;
-    public static int interesEjecutivoPersuasiva;
-    public static int interesVerbal;
-    public static int interesArtisticoPlastica;
-    public static int interesMusical;
-    public static int interesOrganizacion;
-    public static int interesCientifica;
-    public static int interesCalculo;
-    public static int interesMecanicoConstructiva;
-    public static int interesTrabajoAlAireLibre;
-
-    // =========================================================
-    // DATOS DEL CUESTIONARIO
-    // =========================================================
-
-    private int preguntaActual;
-
-    private final List<Integer> respuestas = new ArrayList<>();
-
-    // =========================================================
     // COMPONENTES
     // =========================================================
 
@@ -97,7 +69,6 @@ public class InteresesView extends JFrame {
 
         interesesController.iniciarCuestionario();
     }
-
 
     // =========================================================
     // INICIALIZAR COMPONENTES
