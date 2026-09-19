@@ -12,6 +12,8 @@ import com.test_vocacional.config.ScrollBarCustom;
 import com.test_vocacional.constant.Constants;
 import com.test_vocacional.constant.colors.ColorConstants;
 import com.test_vocacional.constant.font.FontConstants;
+import com.test_vocacional.controller.InteresesController;
+import com.test_vocacional.controller.ReporteController;
 import com.test_vocacional.model.Estudiante;
 import com.test_vocacional.model.ResultadosVocacionales;
 import com.test_vocacional.util.CurrentDate;
@@ -38,7 +40,7 @@ import javax.swing.JTextPane;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
-public class Reporte extends JFrame {
+public class ReporteView extends JFrame {
 
     private JPanel panelPrincipal;
     private JLabel etiquetaTitulo;
@@ -50,16 +52,25 @@ public class Reporte extends JFrame {
 
     private Estudiante estudiante;
 
-    public Reporte(Estudiante estudiante) {
+    private final ReporteController reporteController;
+
+    // =====================================================
+    // CONSTRUCTOR
+    // =====================================================
+    public ReporteView(Estudiante estudiante) {
 
         this.estudiante = estudiante;
 
         initComponents();
+
         WindowConfig.configurar(
                 this,
                 600,
                 500
         );
+
+        reporteController =
+                new ReporteController();
 
         generarTextoInforme();
         configurarReporte();
@@ -82,6 +93,9 @@ public class Reporte extends JFrame {
         configurarLayout();
     }
 
+    // =====================================================
+    // COMPONENTES
+    // =====================================================
     private void configurarComponentes() {
 
         panelPrincipal.setBackground(ColorConstants.BLANCO);
@@ -112,12 +126,76 @@ public class Reporte extends JFrame {
         botonGenerarReporte.setBorder(null);
     }
 
+    // =====================================================
+    // EVENTOS
+    // =====================================================
     private void configurarEventos() {
         botonGenerarReporte.addActionListener(
                 this::generarReporte
         );
     }
 
+    // =====================================================
+    // TEXTO DEL INFORME
+    // =====================================================
+
+    private void generarTextoInforme() {
+
+        textoInforme =
+                reporteController.generarTextoInforme(
+                        estudiante
+                );
+    }
+
+    // =====================================================
+    // MOSTRAR REPORTE
+    // =====================================================
+
+    private void configurarReporte() {
+
+        textoReporte.setText(
+                textoInforme
+        );
+
+        // Colocar el cursor al inicio
+        textoReporte.setCaretPosition(0);
+
+        // Justificar el contenido
+        javax.swing.text.SimpleAttributeSet atributos =
+                new javax.swing.text.SimpleAttributeSet();
+
+        javax.swing.text.StyleConstants.setAlignment(
+                atributos,
+                javax.swing.text.StyleConstants.ALIGN_JUSTIFIED
+        );
+
+        textoReporte
+                .getStyledDocument()
+                .setParagraphAttributes(
+                        0,
+                        textoInforme.length(),
+                        atributos,
+                        false
+                );
+    }
+
+    // =====================================================
+    // GENERAR PDF
+    // =====================================================
+    private void generarReporte(ActionEvent evento) {
+
+        reporteController.generarReporte(
+                estudiante,
+                textoInforme,
+                this
+        );
+
+        dispose();
+    }
+
+    // =====================================================
+    // LAYOUT
+    // =====================================================
     private void configurarLayout() {
 
         GroupLayout distribucionPanel =
@@ -254,283 +332,5 @@ public class Reporte extends JFrame {
         );
 
         pack();
-    }
-
-    private void generarTextoInforme() {
-
-        textoInforme =
-                "Se realizó la prueba Inventario Herrera y Montes, "
-                        + "perfil de intereses y perfil de aptitudes a "
-                        + estudiante.getNombre()
-                        + ", el cual arrojó los siguientes resultados."
-                        + "\n\n"
-
-                        + "De acuerdo al puntaje obtenido en la prueba "
-                        + "de perfil de intereses:"
-                        + "\n"
-                        + "1. "
-                        + ResultadosVocacionales.puntajeIntereses
-                        + "\n\n"
-
-                        + "Por otro lado, de acuerdo al puntaje obtenido "
-                        + "en la prueba de perfil de aptitudes:"
-                        + "\n"
-                        + "1. "
-                        + ResultadosVocacionales.puntajeAptitudes
-                        + "\n\n"
-
-                        + "La mejor opción para "
-                        + estudiante.getNombre()
-                        + " de acuerdo a la prueba realizada son las "
-                        + "carreras de "
-                        + ResultadosVocacionales.carreasInteres
-                        + "."
-                        + "\n\n"
-
-                        + "Cabe mencionar que depende de cada persona "
-                        + "la selección de la carrera que quiere estudiar. "
-                        + "Esta es una prueba estandarizada que puede ayudar "
-                        + "a tener un mejor panorama de los intereses y las "
-                        + "aptitudes. Se recomienda aplicar otra prueba de "
-                        + "orientación vocacional para confirmar sus intereses "
-                        + "vocacionales.";
-    }
-
-    private void configurarReporte() {
-
-        textoReporte.setText(
-                textoInforme
-        );
-
-        // Colocar el cursor al inicio
-        textoReporte.setCaretPosition(0);
-
-        // Justificar el contenido
-        SimpleAttributeSet atributos =
-                new SimpleAttributeSet();
-
-        StyleConstants.setAlignment(
-                atributos,
-                StyleConstants.ALIGN_JUSTIFIED
-        );
-
-        textoReporte
-                .getStyledDocument()
-                .setParagraphAttributes(
-                        0,
-                        textoInforme.length(),
-                        atributos,
-                        false
-                );
-    }
-
-    private void generarReporte(ActionEvent evento) {
-
-        String nombreAlumno = estudiante.getNombre();
-
-        String nombreArchivo = GetNameFile.obtenerNombreArchivo(nombreAlumno);
-
-        String rutaEscritorio =
-                System.getProperty("user.home")
-                        + File.separator
-                        + "Desktop";
-
-        File archivoPdf = new File(
-                rutaEscritorio,
-                nombreArchivo
-        );
-
-        Document documento = new Document(
-                PageSize.A4,
-                72,
-                72,
-                36,
-                36
-        );
-
-        FileOutputStream salida = null;
-
-        try {
-
-            salida = new FileOutputStream(
-                    archivoPdf
-            );
-
-            PdfWriter.getInstance(
-                    documento,
-                    salida
-            );
-
-            documento.open();
-
-            // =================================================
-            // TÍTULO
-            // =================================================
-
-            Paragraph titulo =
-                    new Paragraph(
-                            "Resultados de test vocacional"
-                    );
-
-            titulo.setAlignment(
-                    Element.ALIGN_CENTER
-            );
-
-            documento.add(titulo);
-
-            documento.add(
-                    Chunk.NEWLINE
-            );
-
-            // =================================================
-            // DATOS DEL ALUMNO
-            // =================================================
-
-            documento.add(
-                    new Paragraph(
-                            "Nombre del test: "
-                                    + "Inventario Herrera y Montes"
-                    )
-            );
-
-            documento.add(
-                    new Paragraph(
-                            "Nombre del alumno: "
-                                    + nombreAlumno.toUpperCase()
-                    )
-            );
-
-            documento.add(
-                    new Paragraph(
-                            "Fecha de aplicación de la prueba: "
-                                    + CurrentDate.obtenerFechaActual()
-                    )
-            );
-
-            documento.add(
-                    Chunk.NEWLINE
-            );
-
-            // =================================================
-            // RESULTADOS
-            // =================================================
-
-            Paragraph resultados =
-                    new Paragraph(
-                            textoInforme
-                    );
-
-            resultados.setAlignment(
-                    Element.ALIGN_JUSTIFIED
-            );
-
-            documento.add(
-                    resultados
-            );
-
-            documento.add(
-                    Chunk.NEWLINE
-            );
-
-            documento.add(
-                    Chunk.NEWLINE
-            );
-
-            documento.add(
-                    Chunk.NEWLINE
-            );
-
-            // =================================================
-            // FIRMA
-            // =================================================
-
-            Paragraph lineaFirma =
-                    new Paragraph(
-                            "__________________________________"
-                    );
-
-            lineaFirma.setAlignment(
-                    Element.ALIGN_CENTER
-            );
-
-            documento.add(
-                    lineaFirma
-            );
-
-            Paragraph nombreFirma =
-                    new Paragraph(
-                            "Nombre y firma del aplicador"
-                    );
-
-            nombreFirma.setAlignment(
-                    Element.ALIGN_CENTER
-            );
-
-            documento.add(
-                    nombreFirma
-            );
-
-            // =================================================
-            // CERRAR DOCUMENTO
-            // =================================================
-
-            documento.close();
-
-            if (salida != null) {
-                salida.close();
-            }
-
-            // =================================================
-            // ABRIR PDF
-            // =================================================
-
-            abrirArchivo(archivoPdf);
-
-            dispose();
-
-        } catch (DocumentException
-                 | IOException excepcion) {
-
-            if (documento.isOpen()) {
-                documento.close();
-            }
-
-            try {
-
-                if (salida != null) {
-                    salida.close();
-                }
-
-            } catch (IOException errorSalida) {
-                // No es necesario mostrar este error al usuario.
-            }
-
-            JOptionPane.showMessageDialog(
-                    this,
-                    "No fue posible generar el reporte:\n"
-                            + excepcion.getMessage(),
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE
-            );
-        }
-    }
-
-    private void abrirArchivo(File archivo) throws IOException {
-
-        if (!Desktop.isDesktopSupported()) {
-
-            JOptionPane.showMessageDialog(
-                    this,
-                    "El sistema no permite abrir el archivo automáticamente.",
-                    "Reporte generado",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
-
-            return;
-        }
-
-        Desktop.getDesktop().open(
-                archivo
-        );
     }
 }
