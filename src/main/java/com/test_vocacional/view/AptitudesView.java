@@ -126,14 +126,28 @@ public class AptitudesView extends JFrame {
     // =========================================================
     private void configurarEventos() {
 
-        opcion0.addActionListener(e -> habilitarBoton());
-        opcion1.addActionListener(e -> habilitarBoton());
-        opcion2.addActionListener(e -> habilitarBoton());
-        opcion3.addActionListener(e -> habilitarBoton());
-        opcion4.addActionListener(e -> habilitarBoton());
+        opcion0.addActionListener(
+                evento -> habilitarBoton()
+        );
+
+        opcion1.addActionListener(
+                evento -> habilitarBoton()
+        );
+
+        opcion2.addActionListener(
+                evento -> habilitarBoton()
+        );
+
+        opcion3.addActionListener(
+                evento -> habilitarBoton()
+        );
+
+        opcion4.addActionListener(
+                evento -> habilitarBoton()
+        );
 
         botonSiguiente.addActionListener(
-                e -> aptitudesController.avanzarPregunta()
+                evento -> aptitudesController.avanzarPregunta()
         );
     }
 
