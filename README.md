@@ -46,7 +46,8 @@ CareerPathFinder es una aplicación Java diseñada para ayudar a los estudiantes
 
 <h2 align="center">Funcionamiento del Test</h2>
 <p align="center"> 
-  <img width="48%" alt="Screenshot_1" src="https://github.com/user-attachments/assets/7b33d1fc-7fa5-4f7f-8de9-59db789274c4" />
+
+  <img width="48%" alt="Screenshot_1" src="https://github.com/user-attachments/assets/45ae798b-9fe4-4965-8219-b338d2d37f68" />
   <img width="48%" alt="Screenshot_2" src="https://github.com/user-attachments/assets/97754ebf-c0e5-4f10-9b8c-fe55f3a7305a" />
 </p> 
 
