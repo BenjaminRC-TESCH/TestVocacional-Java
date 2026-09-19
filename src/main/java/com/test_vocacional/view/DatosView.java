@@ -6,10 +6,8 @@ import com.test_vocacional.constant.SourceConstants;
 import com.test_vocacional.constant.colors.ColorConstants;
 import com.test_vocacional.constant.font.FontConstants;
 import com.test_vocacional.controller.DatosController;
-import com.test_vocacional.model.Estudiante;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Objects;
@@ -33,9 +31,7 @@ public class DatosView extends JFrame {
     private TextField campoEspecialidad;
     private JButton botonSiguiente;
 
-    private Estudiante estudiante;
-
-    private final DatosController controlador;
+    private final DatosController datosController;
 
     public DatosView() {
 
@@ -47,7 +43,7 @@ public class DatosView extends JFrame {
                 500
         );
 
-        controlador = new DatosController(this);
+        datosController = new DatosController(this);
     }
 
     ///GETTERS
@@ -154,7 +150,7 @@ public class DatosView extends JFrame {
         });
 
         botonSiguiente.addActionListener(
-                this::siguienteVista
+                e -> siguienteVista()
         );
     }
 
@@ -420,9 +416,10 @@ public class DatosView extends JFrame {
         }
     }
 
-    private void siguienteVista(ActionEvent evento) {
+    ///BOTON SIGUIENTE
+    private void siguienteVista() {
 
-        controlador.procesarDatos();
+        datosController.procesarDatos();
     }
 
 }
