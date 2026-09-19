@@ -13,13 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout;
-import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
-public class Bienvenida extends JFrame {
+public class BienvenidaView extends JFrame {
 
     private JButton botonSiguiente;
     private JLabel etiquetaLogo;
@@ -27,7 +26,7 @@ public class Bienvenida extends JFrame {
     private JLabel etiquetaSubtitulo;
     private JPanel panelBienvenida;
 
-    public Bienvenida() {
+    public BienvenidaView() {
 
         initComponents();
 
