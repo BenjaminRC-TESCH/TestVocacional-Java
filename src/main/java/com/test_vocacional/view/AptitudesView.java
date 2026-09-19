@@ -6,6 +6,7 @@ import com.test_vocacional.constant.AptitudesConstants;
 import com.test_vocacional.constant.Constants;
 import com.test_vocacional.constant.colors.ColorConstants;
 import com.test_vocacional.constant.font.FontConstants;
+import com.test_vocacional.controller.AptitudesController;
 import com.test_vocacional.model.DatosVocacionales;
 import com.test_vocacional.model.Estudiante;
 import com.test_vocacional.util.FormatQuestion;
@@ -15,31 +16,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Aptitudes extends JFrame {
-
-    public static int aptitudesServicioSocial;
-    public static int aptitudesEjecutivoPersuasiva;
-    public static int aptitudesVerbal;
-    public static int aptitudesArtisticoPlastica;
-    public static int aptitudesMusical;
-    public static int aptitudesOrganizacion;
-    public static int aptitudesCientifica;
-    public static int aptitudesCalculo;
-    public static int aptitudesMecanicoConstructiva;
-    public static int aptitudesTrabajoAlAireLibre;
-
-    // =========================================================
-    // DATOS DEL CUESTIONARIO
-    // =========================================================
-
-    private int preguntaActual;
-
-    private final List<Integer> respuestas = new ArrayList<>();
+public class AptitudesView extends JFrame {
 
     // =========================================================
     // COMPONENTES
     // =========================================================
-
     private JPanel panelPrincipal;
     private JLabel etiquetaTitulo;
     private JLabel etiquetaPregunta;
@@ -53,20 +34,32 @@ public class Aptitudes extends JFrame {
 
     private Estudiante estudiante;
 
-    public Aptitudes(Estudiante estudiante) {
+    private final AptitudesController aptitudesController;
+
+    // =========================================================
+    // CONSTRUCTOR
+    // =========================================================
+    public AptitudesView(Estudiante estudiante) {
 
         this.estudiante = estudiante;
 
         initComponents();
+
         WindowConfig.configurar(
                 this,
                 600,
                 550
         );
 
-        mostrarPregunta();
+        aptitudesController = new AptitudesController(estudiante, this);
+
+        aptitudesController.iniciarCuestionario();
+
     }
 
+    // =========================================================
+    // INICIALIZAR COMPONENTES
+    // =========================================================
     private void initComponents() {
 
         grupoOpciones = new ButtonGroup();
@@ -89,6 +82,9 @@ public class Aptitudes extends JFrame {
         configurarLayout();
     }
 
+    // =========================================================
+    // CONFIGURAR COMPONENTES
+    // =========================================================
     private void configurarComponentes() {
 
         panelPrincipal.setBackground(ColorConstants.BLANCO);
@@ -125,6 +121,9 @@ public class Aptitudes extends JFrame {
         grupoOpciones.add(opcion4);
     }
 
+    // =========================================================
+    // EVENTOS
+    // =========================================================
     private void configurarEventos() {
 
         opcion0.addActionListener(e -> habilitarBoton());
@@ -134,10 +133,71 @@ public class Aptitudes extends JFrame {
         opcion4.addActionListener(e -> habilitarBoton());
 
         botonSiguiente.addActionListener(
-                e -> avanzarPregunta()
+                e -> aptitudesController.avanzarPregunta()
         );
     }
 
+    // =========================================================
+    // LÓGICA DE LA INTERFAZ
+    // =========================================================
+    private void habilitarBoton() {
+
+        botonSiguiente.setEnabled(true);
+    }
+
+    // =========================================================
+    // MÉTODO UTILIZADO POR EL CONTROLLER
+    // =========================================================
+    public void mostrarPregunta(String pregunta) {
+
+        etiquetaPregunta.setText(
+                pregunta
+        );
+
+        limpiarOpciones();
+
+        botonSiguiente.setEnabled(false);
+    }
+
+    // =========================================================
+    // OBTENER RESPUESTA
+    // =========================================================
+    public int obtenerRespuestaSeleccionada() {
+
+        if (opcion0.isSelected()) {
+            return 0;
+        }
+
+        if (opcion1.isSelected()) {
+            return 1;
+        }
+
+        if (opcion2.isSelected()) {
+            return 2;
+        }
+
+        if (opcion3.isSelected()) {
+            return 3;
+        }
+
+        if (opcion4.isSelected()) {
+            return 4;
+        }
+
+        return -1;
+    }
+
+    // =========================================================
+    // LIMPIAR OPCIONES
+    // =========================================================
+    private void limpiarOpciones() {
+
+        grupoOpciones.clearSelection();
+    }
+
+    // =========================================================
+    // LAYOUT
+    // =========================================================
     private void configurarLayout() {
 
         GroupLayout layout = new GroupLayout(panelPrincipal);
@@ -268,197 +328,6 @@ public class Aptitudes extends JFrame {
                                 Short.MAX_VALUE
                         )
         );
-    }
-
-    private void habilitarBoton() {
-
-        botonSiguiente.setEnabled(true);
-    }
-
-
-
-
-
-    private void siguienteVista() {
-
-        for (int i = 0; i < respuestas.size(); i++) {
-
-            System.out.println(
-                    "Pregunta "
-                            + (i + 1)
-                            + ": "
-                            + respuestas.get(i)
-            );
-        }
-
-        DatosVocacionales datosVocacionales = new DatosVocacionales();
-        datosVocacionales.aptitudesServicioSocial = this.aptitudesServicioSocial;
-        datosVocacionales.aptitudesEjecutivoPersuasiva = this.aptitudesEjecutivoPersuasiva;
-        datosVocacionales.aptitudesVerbal = this.aptitudesVerbal;
-        datosVocacionales.aptitudesArtisticoPlastica = this.aptitudesArtisticoPlastica;
-        datosVocacionales.aptitudesMusical = this.aptitudesMusical;
-        datosVocacionales.aptitudesOrganizacion = this.aptitudesOrganizacion;
-        datosVocacionales.aptitudesCientifica = this.aptitudesCientifica;
-        datosVocacionales.aptitudesCalculo = this.aptitudesCalculo;
-        datosVocacionales.aptitudesMecanicoConstructiva = this.aptitudesMecanicoConstructiva;
-        datosVocacionales.aptitudesTrabajoAlAireLibre = this.aptitudesTrabajoAlAireLibre;
-
-        Resultado resultado = new Resultado(estudiante);
-        resultado.setVisible(true);
-        dispose();
-
-    }
-
-
-
-
-
-    private void mostrarPregunta() {
-
-        if (preguntaActual >= AptitudesConstants.PREGUNTAS.length) {
-            siguienteVista();
-            return;
-        }
-
-        String pregunta = AptitudesConstants.PREGUNTAS[preguntaActual];
-
-        etiquetaPregunta.setText(
-                formatearPregunta(pregunta)
-        );
-
-        limpiarOpciones();
-
-        botonSiguiente.setEnabled(false);
-    }
-
-    private int obtenerRespuestaSeleccionada() {
-
-        if (opcion0.isSelected()) {
-            return 0;
-        }
-
-        if (opcion1.isSelected()) {
-            return 1;
-        }
-
-        if (opcion2.isSelected()) {
-            return 2;
-        }
-
-        if (opcion3.isSelected()) {
-            return 3;
-        }
-
-        if (opcion4.isSelected()) {
-            return 4;
-        }
-
-        return -1;
-    }
-
-    private void guardarRespuesta() {
-
-        int respuesta = obtenerRespuestaSeleccionada();
-
-        if (respuesta < 0) {
-            return;
-        }
-
-        System.out.println(respuesta);
-        respuestas.add(respuesta);
-
-        actualizarInteres(
-                preguntaActual % 10,
-                respuesta
-        );
-    }
-
-    private void avanzarPregunta() {
-
-        guardarRespuesta();
-
-        preguntaActual++;
-
-        mostrarPregunta();
-    }
-
-    private String formatearPregunta(String pregunta) {
-
-        if (pregunta.length() <= 60) {
-            return pregunta;
-        }
-
-        StringBuilder textoFormateado =
-                new StringBuilder("<html>");
-
-        String[] lineas = FormatQuestion.dividirTexto(
-                pregunta,
-                60
-        );
-
-        for (String linea : lineas) {
-            textoFormateado
-                    .append(linea)
-                    .append("<br>");
-        }
-
-        textoFormateado.append("</html>");
-
-        return textoFormateado.toString();
-    }
-
-    private void actualizarInteres(int posicion, int respuesta) {
-
-        switch (posicion) {
-
-            case 0:
-                aptitudesServicioSocial += respuesta;
-                break;
-
-            case 1:
-                aptitudesEjecutivoPersuasiva += respuesta;
-                break;
-
-            case 2:
-                aptitudesVerbal += respuesta;
-                break;
-
-            case 3:
-                aptitudesArtisticoPlastica += respuesta;
-                break;
-
-            case 4:
-                aptitudesMusical += respuesta;
-                break;
-
-            case 5:
-                aptitudesOrganizacion += respuesta;
-                break;
-
-            case 6:
-                aptitudesCientifica += respuesta;
-                break;
-
-            case 7:
-                aptitudesCalculo += respuesta;
-                break;
-
-            case 8:
-                aptitudesMecanicoConstructiva += respuesta;
-                break;
-
-            case 9:
-                aptitudesTrabajoAlAireLibre += respuesta;
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    private void limpiarOpciones() {
-
-        grupoOpciones.clearSelection();
     }
 
 }
