@@ -12,9 +12,8 @@ import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
-public class Instrucciones extends JFrame {
+public class InstruccionesView extends JFrame {
 
     private JTextPane textoInstrucciones;
     private JButton botonIniciar;
@@ -24,7 +23,7 @@ public class Instrucciones extends JFrame {
 
     private Estudiante estudiante;
 
-    public Instrucciones(Estudiante estudiante) {
+    public InstruccionesView(Estudiante estudiante) {
 
         this.estudiante = estudiante;
 
