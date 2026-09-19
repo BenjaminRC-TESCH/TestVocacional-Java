@@ -206,16 +206,16 @@ public class AptitudesController {
          * que tenías originalmente.
          */
 
-        datosVocacionales.interesServicioSocial = aptitudesServicioSocial;
-        datosVocacionales.interesEjecutivoPersuasiva = aptitudesEjecutivoPersuasiva;
-        datosVocacionales.interesVerbal = aptitudesVerbal;
-        datosVocacionales.interesArtisticoPlastica = aptitudesArtisticoPlastica;
-        datosVocacionales.interesMusical = aptitudesMusical;
-        datosVocacionales.interesOrganizacion = aptitudesOrganizacion;
-        datosVocacionales.interesCientifica = aptitudesCientifica;
-        datosVocacionales.interesCalculo = aptitudesCalculo;
-        datosVocacionales.interesMecanicoConstructiva = aptitudesMecanicoConstructiva;
-        datosVocacionales.interesTrabajoAlAireLibre = aptitudesTrabajoAlAireLibre;
+        datosVocacionales.aptitudesServicioSocial = aptitudesServicioSocial;
+        datosVocacionales.aptitudesEjecutivoPersuasiva = aptitudesEjecutivoPersuasiva;
+        datosVocacionales.aptitudesVerbal = aptitudesVerbal;
+        datosVocacionales.aptitudesArtisticoPlastica = aptitudesArtisticoPlastica;
+        datosVocacionales.aptitudesMusical = aptitudesMusical;
+        datosVocacionales.aptitudesOrganizacion = aptitudesOrganizacion;
+        datosVocacionales.aptitudesCientifica = aptitudesCientifica;
+        datosVocacionales.aptitudesCalculo = aptitudesCalculo;
+        datosVocacionales.aptitudesMecanicoConstructiva = aptitudesMecanicoConstructiva;
+        datosVocacionales.aptitudesTrabajoAlAireLibre = aptitudesTrabajoAlAireLibre;
 
         AptitudesView aptitudesView = new AptitudesView(estudiante);
 
