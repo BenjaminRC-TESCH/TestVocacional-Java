@@ -292,35 +292,46 @@ public class InteresesView extends JFrame {
         // =====================================================
 
         layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-
-                        // Título
-                        .addComponent(etiquetaTitulo)
-
-                        // Pregunta y opciones
+                layout.createSequentialGroup()
+                        .addGap(50)
                         .addGroup(
                                 layout.createParallelGroup(
-                                                GroupLayout.Alignment.LEADING
+                                                GroupLayout.Alignment.CENTER
                                         )
-                                        .addComponent(
-                                                etiquetaPregunta,
-                                                GroupLayout.PREFERRED_SIZE,
-                                                500,
-                                                GroupLayout.PREFERRED_SIZE
-                                        )
-                                        .addComponent(opcion4)
-                                        .addComponent(opcion3)
-                                        .addComponent(opcion2)
-                                        .addComponent(opcion1)
-                                        .addComponent(opcion0)
-                        )
 
-                        // Botón
-                        .addComponent(
-                                botonFinalizar,
-                                GroupLayout.PREFERRED_SIZE,
-                                150,
-                                GroupLayout.PREFERRED_SIZE
+                                        .addGroup(
+                                                layout.createParallelGroup(
+                                                                GroupLayout.Alignment.CENTER
+                                                        )
+                                                        .addComponent(etiquetaTitulo)
+                                        )
+                                        .addGroup(
+                                                layout.createParallelGroup(
+                                                                GroupLayout.Alignment.LEADING
+                                                        )
+                                                        .addComponent(
+                                                                etiquetaPregunta,
+                                                                GroupLayout.PREFERRED_SIZE,
+                                                                500,
+                                                                GroupLayout.PREFERRED_SIZE
+                                                        )
+                                                        .addComponent(opcion4)
+                                                        .addComponent(opcion3)
+                                                        .addComponent(opcion2)
+                                                        .addComponent(opcion1)
+                                                        .addComponent(opcion0)
+                                        )
+                                        .addGroup(
+                                                layout.createParallelGroup(
+                                                                GroupLayout.Alignment.CENTER
+                                                        )
+                                                        .addComponent(
+                                                                botonFinalizar,
+                                                                GroupLayout.PREFERRED_SIZE,
+                                                                150,
+                                                                GroupLayout.PREFERRED_SIZE
+                                                        )
+                                        )
                         )
         );
 
@@ -332,7 +343,7 @@ public class InteresesView extends JFrame {
                 layout.createSequentialGroup()
 
                         // Margen superior
-                        .addGap(50)
+                        .addGap(25)
 
                         // Título
                         .addComponent(etiquetaTitulo)
