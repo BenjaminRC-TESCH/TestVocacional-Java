@@ -415,6 +415,7 @@ public class InteresesView extends JFrame {
                 layoutVentana.createParallelGroup(
                                 GroupLayout.Alignment.CENTER
                         )
+
                         .addComponent(
                                 panelPrincipal,
                                 GroupLayout.DEFAULT_SIZE,
