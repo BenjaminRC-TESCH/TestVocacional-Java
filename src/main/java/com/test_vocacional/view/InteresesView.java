@@ -27,6 +27,7 @@ public class InteresesView extends JFrame {
     // COMPONENTES
     // =========================================================
 
+
     private JPanel panelPrincipal;
 
     private JLabel etiquetaTitulo;
